@@ -1,23 +1,28 @@
-import { useReducer } from "react";
+import { useEffect, useReducer } from "react";
 import { placesReducer } from "@/context/places/placesReducer";
 import { PlacesContext } from "@/context/places/PlacesContext";
+import { useLocation } from "@/hooks/useLocation";
+import type { PlaceState } from "@/types/location";
 
-export interface PlacesState {
-  isLoading: boolean;
-  userLocation?: [number, number];
-}
-
-const INITIAL_STATE: PlacesState = {
-  isLoading: false,
-  userLocation: undefined,
+const initialState: PlaceState = {
+  isLoading: true,
+  userLocation: [0, 0],
 };
 
-export default function PlacesProvider({
-  children,
-}: {
+interface PlacesProviderProps {
   children: React.ReactNode;
-}) {
-  const [state] = useReducer(placesReducer, INITIAL_STATE);
+}
+
+export default function PlacesProvider({ children }: PlacesProviderProps) {
+  const [state, dispatch] = useReducer(placesReducer, initialState);
+  const { location } = useLocation();
+
+  useEffect(() => {
+    dispatch({
+      type: "SET_USER_LOCATION",
+      payload: [location.longitude, location.latitude],
+    });
+  }, [location.latitude, location.longitude]);
 
   return (
     <PlacesContext.Provider value={{ ...state }}>

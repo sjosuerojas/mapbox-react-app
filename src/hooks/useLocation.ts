@@ -1,37 +1,31 @@
 import { useState, useEffect } from "react";
+import type { LocationError, Location } from "@/types/location";
 
-interface Location {
-  latitude: number | null;
-  longitude: number | null;
-}
-
-interface LocationError {
-  message: string;
-}
-
-interface useLocationProps {
+interface GeoLocation {
   location: Location;
   error: LocationError | null;
 }
 
-export function useLocation(): useLocationProps {
-  const [location, setLocation] = useState<Location>({
-    latitude: null,
-    longitude: null,
-  });
+const initialState = {
+  latitude: 0,
+  longitude: 0,
+};
+
+export function useLocation(): GeoLocation {
   const [error, setError] = useState<LocationError | null>(null);
+  const [location, setLocation] = useState<Location>(initialState);
 
   useEffect(() => {
     if ("geolocation" in navigator) {
       navigator.geolocation.getCurrentPosition(
-        (position) => {
+        ({ coords }) => {
           setLocation({
-            latitude: position.coords.latitude,
-            longitude: position.coords.longitude,
+            latitude: coords.latitude,
+            longitude: coords.longitude,
           });
         },
-        (error) => {
-          setError({ message: error.message });
+        ({ message }) => {
+          setError({ message });
         }
       );
     } else {
