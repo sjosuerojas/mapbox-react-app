@@ -6,12 +6,14 @@ interface GeoLocation {
   error: LocationError | null;
 }
 
+const initialState = {
+  latitude: 0,
+  longitude: 0,
+};
+
 export function useLocation(): GeoLocation {
   const [error, setError] = useState<LocationError | null>(null);
-  const [location, setLocation] = useState<Location>({
-    latitude: 0,
-    longitude: 0,
-  });
+  const [location, setLocation] = useState<Location>(initialState);
 
   useEffect(() => {
     if ("geolocation" in navigator) {

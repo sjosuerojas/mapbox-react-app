@@ -2,7 +2,6 @@ import { useContext, useEffect, useRef } from "react";
 import { PlacesContext } from "@/context";
 import { Loader } from "./ui/Loader";
 import maplibregl from "maplibre-gl";
-import "maplibre-gl/dist/maplibre-gl.css";
 
 export default function MapScreen() {
   const { isLoading, userLocation } = useContext(PlacesContext);

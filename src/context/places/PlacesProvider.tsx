@@ -4,7 +4,7 @@ import { PlacesContext } from "@/context/places/PlacesContext";
 import { useLocation } from "@/hooks/useLocation";
 import type { PlaceState } from "@/types/location";
 
-const InitialValue: PlaceState = {
+const initialState: PlaceState = {
   isLoading: true,
   userLocation: [0, 0],
 };
@@ -14,7 +14,7 @@ interface PlacesProviderProps {
 }
 
 export default function PlacesProvider({ children }: PlacesProviderProps) {
-  const [state, dispatch] = useReducer(placesReducer, InitialValue);
+  const [state, dispatch] = useReducer(placesReducer, initialState);
   const { location } = useLocation();
 
   useEffect(() => {

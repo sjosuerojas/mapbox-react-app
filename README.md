@@ -13,6 +13,9 @@ If you are developing a production application, we recommend updating the config
 
 - Configure the top-level `parserOptions` property like this:
 
+https://cloud.maptiler.com/maps/openstreetmap/
+https://maplibre.org/maplibre-gl-js/docs/examples/attribution-position/
+
 ```js
    parserOptions: {
     ecmaVersion: 'latest',
