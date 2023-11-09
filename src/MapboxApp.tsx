@@ -1,9 +1,10 @@
 import { PlacesProvider } from "@/context";
+import MapScreen from "./components/MapScreen";
 
 export default function MapboxApp() {
   return (
     <PlacesProvider>
-      <h1>Menas</h1>
+      <MapScreen />
     </PlacesProvider>
   );
 }

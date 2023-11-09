@@ -1,19 +1,17 @@
-import type { PlacesState } from "@/context/places/PlacesProvider";
-import * as PlacesTypes from "@/constants/places";
+import type { PlaceState } from "@/types/location";
 
 type PlacesAction = {
-  type: typeof PlacesTypes.setUserLocation;
+  type: "SET_USER_LOCATION";
   payload: [number, number];
 };
 
 export const placesReducer = (
-  state: PlacesState,
+  state: PlaceState,
   action: PlacesAction
-): PlacesState => {
+): PlaceState => {
   switch (action.type) {
-    case PlacesTypes.setUserLocation:
+    case "SET_USER_LOCATION":
       return { ...state, isLoading: false, userLocation: action.payload };
-
     default:
       return state;
   }
